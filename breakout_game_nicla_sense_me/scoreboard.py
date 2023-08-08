@@ -23,8 +23,7 @@ class Scoreboard(Turtle):
 
 	def update_score(self):
 		self.clear()
-		self.write(f"Score: {self.score} | Highest Score: \
-		{self.highScore} | Lives: {self.lives}", align='left',
+		self.write(f"Score: {self.score} | Highest Score: {self.highScore} | Lives: {self.lives}", align='left',
 				font=FONT)
 
 	def increase_score(self):

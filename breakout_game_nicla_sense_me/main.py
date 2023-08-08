@@ -5,6 +5,9 @@ from scoreboard import Scoreboard
 from ui import UI
 from bricks import Bricks
 import time
+from tkinter import messagebox
+import tkinter
+import subprocess
 
 
 screen = tr.Screen()
@@ -13,11 +16,13 @@ screen.bgcolor('black')
 screen.title('Breakout')
 screen.tracer(0)
 
+screen_width = screen.window_width()
+
 ui = UI()
 ui.header()
 
-score = Scoreboard(lives=10)
-paddle = Paddle()
+score = Scoreboard(lives=2)
+paddle = Paddle(screen_width)
 bricks = Bricks()
 
 
@@ -41,6 +46,7 @@ screen.onkey(key='Right', fun=paddle.move_right)
 screen.onkey(key='space', fun=pause_game)
 
 
+
 def check_collision_with_walls():
 
 	global ball, score, playing_game, ui
@@ -62,9 +68,14 @@ def check_collision_with_walls():
 		ball.reset()
 		score.decrease_lives()
 		if score.lives == 0:
-			score.reset()
+			#score.reset()
 			playing_game = False
 			ui.game_over(win=False)
+			parent = tkinter.Tk() # Create the object
+			parent.withdraw()
+			yesno = messagebox.askyesno('Nicla Sense', 'Do you want to restart?', parent=parent) # Yes / No
+			if yesno == True:
+				process = subprocess.Popen("python main.py", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 			return
 		ui.change_color()
 		return
@@ -146,7 +157,6 @@ def check_collision_with_bricks():
 			elif ball.ycor() > brick.upper_wall:
 				ball.bounce(x_bounce=False, y_bounce=True)
 
-
 while playing_game:
 
 	if not game_paused:
@@ -174,4 +184,3 @@ while playing_game:
 		ui.paused_status()
 
 
-tr.mainloop()

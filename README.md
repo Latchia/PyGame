@@ -29,7 +29,7 @@ which inturn invokes 2 python scripts namely main.py and control.py
 Tilt the sensor and the paddle moves!
 
 ## GO WILD!
---------------------------------------------------------------------------------
+
 Now you want to do something on your own, 
 Think about trying the similar approach with any retro games like classic snake game, Asteroid game ...,
 
